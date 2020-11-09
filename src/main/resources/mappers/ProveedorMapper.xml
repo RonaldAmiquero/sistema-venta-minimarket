@@ -5,9 +5,16 @@
   <resultMap id="proveedorResultMap" extends="edu.cientifica.minimarket.mappers.PersonaMapper.personaResultMap"
               type="edu.cientifica.minimarket.model.Proveedor">
     <result column="ruc" property="ruc"/>
-    <result column="nombre_empresa" property="nombreEmpresa" />
+    <result column="nombre_empresa" property="nombreEmpresa"/>
     <result column="comercializa" property="comercializa" />
   </resultMap>
+
+  <select id="findAllProveedores" resultMap="proveedorResultMap">
+		SELECT 
+		pe.id, pe.nombre, pe.email, pe.telefono, pe.direccion, p.ruc, p.nombre_empresa,p.comercializa 
+		FROM proveedores p INNER JOIN personas pe 
+		ON pe.id = p.id_proveedor
+  </select>
 
 <!-- 
 <resultMap id="empleadoResultMap" extends="edu.cientifica.papeleta.mappers.PersonaMapper.personaResultMap"
@@ -17,5 +24,36 @@
 		<association column="id_area" property="area" javaType="edu.cientifica.papeleta.model.Area"
 			resultMap="edu.cientifica.papeleta.mappers.AreaMapper.areaResultMap" />
 	</resultMap>
+<select id="listaEmpleado" resultMap="empleadoResultMap">
+		Select
+		<include refid="edu.cientifica.papeleta.mappers.PersonaMapper.camposPersona"/>,
+		<include refid="edu.cientifica.papeleta.mappers.EmpleadoMapper.camposEmpleado" />,
+		<include refid="edu.cientifica.papeleta.mappers.AreaMapper.camposArea"/>
+		From empleado e
+		Inner Join persona p
+		On e.id_empleado = p.id_persona
+		Inner Join area a
+		On e.id_area = a.id_area
+	</select>
+	
+	<select id="empleadoById" resultMap="empleadoResultMap">
+		Select
+		<include refid="edu.cientifica.papeleta.mappers.PersonaMapper.camposPersona" />,
+		<include refid="edu.cientifica.papeleta.mappers.EmpleadoMapper.camposEmpleado" />,
+		<include refid="edu.cientifica.papeleta.mappers.AreaMapper.camposArea"/>
+		From empleado e
+		Inner Join persona p
+		On e.id_empleado = p.id_persona
+		Inner Join area a
+    On e.id_area = a.id_area
+		Where
+		e.id_empleado = #{id}
+	</select>
+	
+	<sql id="camposEmpleado">
+		e.fecha_ingreso,
+		e.id_tipo_empleado,
+		e.id_area
+	</sql>
 -->
 </mapper>

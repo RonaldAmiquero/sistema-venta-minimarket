@@ -78,59 +78,61 @@
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
-        <form action="" >
+        <form th:action="@{/producto/registrar}" method="post" th:object="${Producto}" >
           <div class="form-row form-group">
             <div class="col">
               <label for="idProducto">Id</label>
-              <input type="text" class="form-control" id="idProducto" name="idProducto">
+              <input type="number" class="form-control" readonly="readonly" id="idProducto" name="idProducto" th:field="*{idProducto}">
             </div>
             <div class="col">
               <label for="nombreProducto">Nombre del Producto</label>
-              <input type="text" class="form-control" id="nombreProducto" name="nombreProducto">
+              <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" th:field="*{nombre}">
             </div>
           </div>
           <div class="form-row form-group">
             <div class="col">
               <label for="codBarras">Código de Barras</label>
-              <input type="text" class="form-control" id="codBarras" name="codBarras">
+              <input type="text" class="form-control" id="codBarras" name="codBarras" th:field="*{codigoBarras}">
             </div>
             <div class="col">
               <label for="categoria">Categoria</label>
-              <select id="categoria" name="categoria" class="form-control">
+              <select id="categoria" name="categoria" class="form-control" th:field="*{categoria.idCategoria}">
                 <option th:value="0" th:text="---Seleccionar---"></option>
                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}">
                 </option>
-          
               </select>
             </div>
           </div>
           <div class="form-row form-group">
             <div class="col">
               <label for="stock">Stock Producto</label>
-              <input type="text" class="form-control" id="stock" name="stock">
+              <input type="number" min="0" class="form-control" id="stock" name="stock" th:field="*{stockProducto}">
             </div>
             <div class="col">
               <label for="costoUnitario">Costo Unitario</label>
-              <input type="text" class="form-control" id="costoUnitario" name="costoUnitario">
+              <input type="number" step="any" min="0" class="form-control" id="costoUnitario" name="costoUnitario" th:field="*{costoUnitario}">
             </div>
           </div>
           <div class="form-row form-group">
             <div class="col">
               <label for="precioVenta">Precio Venta</label>
-              <input type="text" class="form-control" id="precioVenta" name="precioVenta">
+              <input type="number" step="any" min="0" class="form-control" id="precioVenta" name="precioVenta" th:field="*{precioVenta}">
             </div>
             <div class="col">
               <label for="fvencimiento">Fecha Vencimiento</label>
-              <input type="date" class="form-control" id="fvencimiento" name="fvencimiento">
+              <input type="date" class="form-control" id="fvencimiento" name="fvencimiento" th:field="*{fechaVencimiento}">
             </div>
           </div>
           <div class="form-row form-group">
+          <!--  
             <div class="col-6">
               <label for="proveedor">Proveedor</label>
               <select id="proveedor" name="proveedor" class="form-control">           
-                <option value="0">--Seleccione--</option>
+                <option th:value="0" th:text="--Seleccione--"></option>
+                <option th:each="proveedor : ${listaProveedores}" th:value="null" th:text="${proveedor.nombreEmpresa}">
               </select>
             </div>
+            --> 
           </div>
           <div class="form-row">
             <div class="col-0 offset-5">

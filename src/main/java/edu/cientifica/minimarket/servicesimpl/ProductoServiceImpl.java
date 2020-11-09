@@ -30,4 +30,11 @@ public class ProductoServiceImpl implements ProductoService{
 		return null;
 	}
 
+	@Override
+	public int asignarId() {
+		return productoMapper.findId();
+	}
+	
+	
+
 }

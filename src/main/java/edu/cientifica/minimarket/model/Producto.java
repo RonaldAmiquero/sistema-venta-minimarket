@@ -12,8 +12,7 @@ public class Producto {
 	private int stockProducto;
 	private Date fechaVencimiento;
 	private Proveedor proveedor;
-	
-	
+
 	
 	public Producto() {
 		super();
