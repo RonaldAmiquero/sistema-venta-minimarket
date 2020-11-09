@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 import edu.cientifica.minimarket.model.Categoria;
 
 
-
 @Mapper
 public interface CategoriaMapper {
 	

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Inicio</title>
+        <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+
+        <link rel="stylesheet" th:href="@{/css/login.css}">
+
+    </head>
+
+    <body>
+        <div class="login-form" id="login-form">
+            <form th:action="@{/validar}" method="post" action="/validar">
+
+                <img th:src="@{/img/logo.jpeg}" alt="logotitulo" style="width: 300px; height: auto; margin: 10px;"
+                    class="rounded">
+                <div class="alert alert-danger" role="alert" th:if="${loginError}">
+                    <p class="text-center">Usuario o contraseña incorrecta</p>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" name="username" placeholder="Username"
+                            required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input type="password" class="form-control" name="password" placeholder="Password"
+                            required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success login-btn btn-block">Iniciar Sesión</button>
+                </div>
+                <div class="clearfix">
+                    <label class="pull-left checkbox-inline"><input type="checkbox">Recordar</label>
+                    <a href="#" class="pull-right">Recuperar Contraseña?</a>
+                </div>
+                <div class="or-seperator"><i>ooOoo</i></div>
+                <p class="text-center"><a href="#">Solicitar Usuario</a> </p>
+            </form>
+        </div>
+
+        <!-- bootrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
