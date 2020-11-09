@@ -78,7 +78,7 @@
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
-        <form action="#" th:action="#" >
+        <form action="" >
           <div class="form-row form-group">
             <div class="col">
               <label for="idProducto">Id</label>
@@ -97,9 +97,13 @@
             <div class="col">
               <label for="categoria">Categoria</label>
               <select id="categoria" name="categoria" class="form-control">
+              	<option value="dsdsd">--Seleccione--</option>
+                
+                <!-- 
                 <option th:value="0" th:text="---Seleccionar---"></option>
                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}">
                 </option>
+                 -->
               </select>
             </div>
           </div>
@@ -127,9 +131,7 @@
             <div class="col-6">
               <label for="proveedor">Proveedor</label>
               <select id="proveedor" name="proveedor" class="form-control">           
-                <option value="null">--Seleccione--</option>
-                <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
-                </option>
+                <option value="0">--Seleccione--</option>
               </select>
             </div>
           </div>

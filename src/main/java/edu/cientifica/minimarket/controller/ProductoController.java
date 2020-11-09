@@ -20,17 +20,17 @@ import edu.cientifica.minimarket.services.CategoriaService;
 @RequestMapping("/producto")
 public class ProductoController {
 	
-	@Autowired
-	CategoriaService categoriaService;
+	//@Autowired
+	//CategoriaService categoriaService;
 	
 	@GetMapping("/form")
-	public String formularioProducto(Model model)  {
+	public String formularioProducto()  {
 		/*
 		List<Categoria> listaCategorias= null;	
 		listaCategorias = categoriaService.listarCategoria();
-		//Producto producto = new Producto();
-		//unidadPrivada.setId(unidadPrivadaService.buscarIdMax());
-		//model.addAttribute("Producto", producto);
+		Producto producto = new Producto();
+		unidadPrivada.setId(unidadPrivadaService.buscarIdMax());
+		model.addAttribute("Producto", producto);
 		model.addAttribute("listaCategorias",listaCategorias);
 		*/
 		return "registrarProductos";
