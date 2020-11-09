@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.cientifica.minimarket.mappers.CategoriaMapper">
 
-  	<resultMap id="categoriaResultMap" type="edu.cientifica.minimarket.model.Categoria">
-	    <id column="id_categoria" property="idCategoria" />
-	    <result column="descripcion" property="descripcion" />
-	    <result column="stock_minimo" property="stockMinimo" />
-	    <result column="estado" property="estado" />
- 	</resultMap>
+<resultMap id="categoriaResultMap" type="edu.cientifica.minimarket.model.Categoria">
+    <id column="id_categoria" property="idCategoria" />
+    <result column="descripcion" property="descripcion" />
+	<result column="stock_minimo" property="stockMinimo" />
+    <result column="estado" property="estado" />
+  </resultMap>
 </mapper>

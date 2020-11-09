@@ -17,7 +17,7 @@ public interface CategoriaMapper {
 	public List<UnidadInmobiliaria> findAllUnidadInmobiliaria();*/
 	
 	@Select("SELECT * FROM categorias")
-	@ResultMap("edu.cientifica.venta.mappers.CategoriaMapper.categoriaResultMap")
+	@ResultMap("edu.cientifica.minimarket.mappers.CategoriaMapper.categoriaResultMap")
 	public List<Categoria> finAllCategory();
 
 }
