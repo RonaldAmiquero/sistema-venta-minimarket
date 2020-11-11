@@ -52,5 +52,11 @@ public class UsuarioController {
 		
 		return "demoform";
 	}
+	
+	@GetMapping("/inicio")
+	public String inicio() {
+		
+		return "principal";
+	}
 
 }

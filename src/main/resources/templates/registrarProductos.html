@@ -16,65 +16,8 @@
   </head>
 
   <body>
-    <nav id="header" class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="/principal.html" th:href="@{/principal.html}">
-                    <img src="/img/logo.jpeg" th:src="@{/img/logo.jpeg}" alt="logo Esmeralda" class="rounded">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="menu-option nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Proveedores</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Registrar proveedores</a>
-                                <a class="dropdown-item" href="#">Gestionar Proveedores</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="menu-option nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" th:href="@{/registrarProductos.html}">Registrar Productos</a>
-                                <a class="dropdown-item" href="#">Gestionar Productos</a>
-                                <a class="dropdown-item" href="#">Entrada de productos</a>
-                                <a class="dropdown-item" href="/salidaProducto.html">Gestionar Productos de Salida</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="menu-option nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/realizarVenta.html">Realizar Ventas</a>
-                                <a class="dropdown-item" href="/ventasRegistradas.html">Listar Ventas Registradas</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-option nav-link" href="#">Reportes</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="menu-option nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Registrar Usuarios</a>
-                                <a class="dropdown-item" href="#">Listar Usuarios</a>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Administrador" readonly>
-                    <a th:href="@{#}" class="btn btn-primary my-2 my-sm-0">Cerrar Sesión</a>
-                </form>
-            </div>
-        </nav>
+  <nav th:replace="principal :: nav"></nav>
+  
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
@@ -132,7 +75,7 @@
                 <option th:each="proveedor : ${listaProveedores}" th:value="null" th:text="${proveedor.nombreEmpresa}">
               </select>
             </div>
-            --> 
+           --> 
           </div>
           <div class="form-row">
             <div class="col-0 offset-5">
@@ -145,12 +88,6 @@
         </form>
       </div>
     </section>
-
-
-
-
-
-
 
 
     <!-- Optional JavaScript; choose one of the two! -->

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css}"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/principal.css}">
+    <link rel="stylesheet" th:href="@{/css/realizarVenta.css}">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+
+    <title>Minimarket Esmeralda</title>
+  </head>
+
+  <body>
+
+    <nav th:replace="principal :: nav">
+    </nav>
+    <main>
+      <div class="container">
+        <h3 class="text-center pt-2 pb-2">Realizar Venta</h3>
+        <form action="">
+          <div class="form-row form-group">
+            <div class="col-5">
+              <label for="codigoBarra">Código de barras</label>
+              <input autofocus autocomplete="off" class="form-control" id="codigoBarra" type="text"
+                placeholder="escanea el código o escribelo y presione enter">
+            </div>
+          </div>
+        </form>
+        <form action="">
+          <div class="form-row form-group">
+            <div class="col-0">
+              <a href="" class="btn btn-success">Nueva Venta <i class="fa fa-plus" aria-hidden="true"></i></a>
+            </div>
+            <div class="col-0">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comprobante">Generar
+                Comprobante</button>
+            </div>
+          </div>
+        </form>
+        <div class="form-row form-group">
+          <div class="col-0 totalVenta d-flex align-items-center">
+            <label for="total"><strong>TOTAL DE VENTA:</strong></label>
+          </div>
+          <div class="col-3">
+            <input class="form-control" id="total" name="total" type="text">
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-success">Código</th>
+              <th class="text-success">Nombre</th>
+              <th class="text-success">Cantidad</th>
+              <th class="text-success">Precio</th>
+              <th class="text-success">Importe</th>
+              <th class="text-success">Quitar de lista</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="producto, iterador : ${session.carrito}">
+              <td th:text="${producto.codigo}">112122</td>
+              <td th:text="${producto.nombre}">Galleta Soda</td>
+              <td class="cantidad">
+                <input type="number" class="form-control " min="1">
+              </td>
+              <td th:text="${producto.precio}">2.00</td>
+              <td th:text="${producto.total}">10.00</td>
+              <td class="d-flex justify-content-center">
+                <form th:action="@{/vender/quitar/} + ${iterador.index}" method="post">
+                  <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+    </main>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="comprobante" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Comprobante de Venta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#">
+              <div class="form-row form-group">
+                <div class="col-6">
+                  <label for="codComprobante">Código</label>
+                  <input type="text" class="form-control" id="codComprobante">
+                </div>
+                <div class="col-6">
+                  <label for="fechaCompr">Fecha (dd/mm/aaaa)</label>
+                  <input type="date" class="form-control" id="fechaCompr" name="fechaComprobante">
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col-6">
+                  <label for="nomCliente">Nombre del Cliente</label>
+                  <select id="nomCliente" name="nomCliente" class="form-control">
+                    <option value="dsdsd">--Seleccione--
+                    </option>
+                    <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
+                    </option>
+                  </select>
+                </div>
+                <div class="col d-flex align-items-end">
+                  <button class="btn btn-primary">Nuevo</button>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="metodoPago">Metodo de Pago</label>
+                  <select name="metodoPago" id="metodoPago" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="">Tarjeta</option>
+                    <option value="">Efectivo</option>
+                    <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="tipoComprobante">Tipo Comprobante</label>
+                  <select name="tipoComprobante" id="tipoComprobante" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="">Boleta</option>
+                    <option value="">Factura</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="montoPagar">Monto a Pagar</label>
+                  <input type="text" class="form-control" id="montoPagar">
+                </div>
+                <div class="col">
+                  <label for="efectivoRecib">Monto a Pagar</label>
+                  <input type="text" class="form-control" id="efectivoRecib">
+                </div>
+                <div class="col">
+                  <label for="cambio">Cambio</label>
+                  <input type="text" class="form-control" id="cambio">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="input" class="btn btn-primary">Registrar e Imprimir</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+
+
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+  </body>
+
+</html>

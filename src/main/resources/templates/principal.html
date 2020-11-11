@@ -15,10 +15,10 @@
     </head>
 
     <body>
-        <nav id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav th:fragment="nav" id="header" class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="/principal.html" th:href="@{/principal.html}">
-                    <img src="/img/logo.jpeg" th:src="@{/img/logo.jpeg}" alt="logo Esmeralda" class="rounded">
+                <a class="navbar-brand" th:href="@{/inicio}">
+                    <img th:src="@{/img/logo.jpeg}" alt="logo Esmeralda" class="rounded">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -50,7 +50,7 @@
                             <a class="menu-option nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/realizarVenta.html">Realizar Ventas</a>
+                                <a class="dropdown-item" th:href="@{/venta/}">Realizar Ventas</a>
                                 <a class="dropdown-item" href="/ventasRegistradas.html">Listar Ventas Registradas</a>
                             </div>
                         </li>
