@@ -42,6 +42,12 @@ public class Persona {
 		this.nombre = nombre;
 		this.direccion = direccion;
 	}
+	
+	public Persona(int id, String nombre) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+	}
 
 	public int getId() {
 		return id;
