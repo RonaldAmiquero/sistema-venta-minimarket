@@ -5,12 +5,18 @@ public class Proveedor extends Persona{
 	private String nombreEmpresa;
 	private String comercializa;
 	
+	public Proveedor() {}
+	
 	public Proveedor(int id, String nombreRepresentante, String email, int telefono, String direccion, int ruc, String nombreEmpresa,
 			String comercializa) {
 		super(id, nombreRepresentante, email, telefono, direccion);
 		this.ruc = ruc;
 		this.nombreEmpresa = nombreEmpresa;
 		this.comercializa = comercializa;
+	}
+	
+	public Proveedor(Persona persona) {
+		super(persona.getId(),persona.getNombre(),persona.getEmail(),persona.getTelefono(),persona.getDireccion());	
 	}
 
 	public Proveedor(int id, String nombreRepresentante, String email, int telefono, String direccion, int ruc,

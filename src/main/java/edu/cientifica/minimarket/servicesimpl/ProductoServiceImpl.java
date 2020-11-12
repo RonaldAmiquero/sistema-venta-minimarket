@@ -20,7 +20,9 @@ public class ProductoServiceImpl implements ProductoService{
 
 	@Override
 	public int registrarProducto(Producto producto) {
-		int result = productoMapper.addProducto(producto);
+		int a = productoMapper.addProducto(producto);
+		int b = productoMapper.addTabProductoProveedor(producto);
+		int result=a+b;
 		LOG.info("Numero de registros afectados : "+result);
 		return result;
 	}

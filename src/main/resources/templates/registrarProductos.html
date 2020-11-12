@@ -67,15 +67,18 @@
             </div>
           </div>
           <div class="form-row form-group">
-          <!--  
+          <!--
+          th:field="*{proveedor.id}
+          th:value="proveedor.id"
+           --> 
             <div class="col-6">
               <label for="proveedor">Proveedor</label>
-              <select id="proveedor" name="proveedor" class="form-control">           
+              <select id="proveedor" name="proveedor" class="form-control" th:field="*{proveedor.id}" >           
                 <option th:value="0" th:text="--Seleccione--"></option>
-                <option th:each="proveedor : ${listaProveedores}" th:value="null" th:text="${proveedor.nombreEmpresa}">
+                <option th:each="proveedor : ${listaProveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}">
               </select>
             </div>
-           --> 
+            
           </div>
           <div class="form-row">
             <div class="col-0 offset-5">

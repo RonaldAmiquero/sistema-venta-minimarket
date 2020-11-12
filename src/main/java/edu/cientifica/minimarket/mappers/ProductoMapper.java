@@ -18,7 +18,8 @@ public interface ProductoMapper {
 	@ResultType(Integer.class)
 	public int findId();
 	
-	//@Insert("INSERT INTO proveedores_productos(id_producto, id_proveedor) VALUES (#{idProducto}, #{proveedor.id})")
-	//public void addTabProductoProveedor(Producto producto);
+	@Insert("INSERT INTO proveedores_productos (id_producto, id_proveedor) VALUES (#{idProducto}, #{proveedor.id})")
+	public int addTabProductoProveedor(Producto producto);
+
 	
 }
