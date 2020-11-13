@@ -2,6 +2,7 @@ package edu.cientifica.minimarket.mappers;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,6 +21,13 @@ public interface ProductoMapper {
 	
 	@Insert("INSERT INTO proveedores_productos (id_producto, id_proveedor) VALUES (#{idProducto}, #{proveedor.id})")
 	public int addTabProductoProveedor(Producto producto);
-
 	
+	@Select("SELECT * FROM productos WHERE id_producto = #{idProducto}")
+	@ResultType(Producto.class)
+	public Producto findProductId(int idProducto);
+	
+	@Select("SELECT * FROM productos WHERE codigo_barra = #{codBarras}")
+	@ResultMap("edu.cientifica.minimarket.mappers.Producto.productoResultMap")
+	public Producto findProductCodBarras(String codBarras);
+
 }

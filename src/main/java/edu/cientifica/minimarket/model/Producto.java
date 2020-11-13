@@ -13,13 +13,11 @@ public class Producto {
 	private Date fechaVencimiento;
 	private Proveedor proveedor;
 
-	
 	public Producto() {
 		super();
 	}
 
-	
-	public Producto (Producto producto) {
+	public Producto(Producto producto) {
 		super();
 		this.idProducto = producto.idProducto;
 		this.codigoBarras = producto.codigoBarras;
@@ -31,6 +29,7 @@ public class Producto {
 		this.fechaVencimiento = producto.fechaVencimiento;
 		this.proveedor = producto.proveedor;
 	}
+
 	public Producto(int idProducto, String codigoBarras, String nombre, Categoria categoria, double costoUnitario,
 			double precioVenta, int stockProducto, Date fechaVencimiento, Proveedor proveedor) {
 		super();
@@ -44,6 +43,7 @@ public class Producto {
 		this.fechaVencimiento = fechaVencimiento;
 		this.proveedor = proveedor;
 	}
+
 	public Producto(int idProducto, String codigoBarras, String nombre, Categoria categoria, double costoUnitario,
 			double precioVenta, int stockProducto, Date fechaVencimiento) {
 		super();
@@ -57,96 +57,90 @@ public class Producto {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
-
 	public int getIdProducto() {
 		return idProducto;
 	}
-
 
 	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
 	}
 
-
 	public String getCodigoBarras() {
 		return codigoBarras;
 	}
-
 
 	public void setCodigoBarras(String codigoBarras) {
 		this.codigoBarras = codigoBarras;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
-
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-
 	public double getCostoUnitario() {
 		return costoUnitario;
 	}
-
 
 	public void setCostoUnitario(double costoUnitario) {
 		this.costoUnitario = costoUnitario;
 	}
 
-
 	public double getPrecioVenta() {
 		return precioVenta;
 	}
-
 
 	public void setPrecioVenta(double precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 
-
 	public int getStockProducto() {
 		return stockProducto;
 	}
-
 
 	public void setStockProducto(int stockProducto) {
 		this.stockProducto = stockProducto;
 	}
 
-
 	public Date getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
-
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
-	
 
 	public Proveedor getProveedor() {
 		return proveedor;
 	}
 
-
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
 
+	public boolean sinExistencia() {
+		/*
+		boolean result=false;
+		
+		if(stockProducto <= 0) {
+			result=true;
+		}else {
+			result=false;
+		}
+		*/
+		return this.stockProducto <= 0;
+	}
 
 	@Override
 	public String toString() {
@@ -155,6 +149,5 @@ public class Producto {
 				+ ", stockProducto=" + stockProducto + ", fechaVencimiento=" + fechaVencimiento + ", proveedor="
 				+ proveedor + "]";
 	}
-
 
 }

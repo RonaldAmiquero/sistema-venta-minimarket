@@ -63,5 +63,11 @@ public class Proveedor extends Persona{
 	public void setComercializa(String comercializa) {
 		this.comercializa = comercializa;
 	}
+
+	@Override
+	public String toString() {
+		return "Proveedor ["+ super.toString() + ", ruc=" + ruc + ", nombreEmpresa=" + nombreEmpresa + ", comercializa=" + comercializa + "]";
+	}
+	
 	
 }

@@ -36,6 +36,19 @@ public class ProductoServiceImpl implements ProductoService{
 	public int asignarId() {
 		return productoMapper.findId();
 	}
+
+	@Override
+	public Producto buscarProductoId(int idProducto) {
+		
+		return productoMapper.findProductId(idProducto);
+	}
+
+	@Override
+	public Producto buscarCodBarras(String codBarras) {
+		return productoMapper.findProductCodBarras(codBarras);
+	}
+	
+	
 	
 	
 

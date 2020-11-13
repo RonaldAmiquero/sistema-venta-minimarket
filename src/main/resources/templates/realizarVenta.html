@@ -23,12 +23,16 @@
     <main>
       <div class="container">
         <h3 class="text-center pt-2 pb-2">Realizar Venta</h3>
-        <form action="">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
+        <form th:action="@{/venta/agregar}" th:object="${producto}" method="post">
           <div class="form-row form-group">
             <div class="col-5">
               <label for="codigoBarra">Código de barras</label>
               <input autofocus autocomplete="off" class="form-control" id="codigoBarra" type="text"
-                placeholder="escanea el código o escribelo y presione enter">
+                placeholder="escanea el código o escribelo y presione enter" th:field="*{codigoBarras}">
             </div>
           </div>
         </form>
@@ -48,7 +52,7 @@
             <label for="total"><strong>SUB TOTAL:</strong></label>
           </div>
           <div class="col-3">
-            <input class="form-control" id="total" name="total" type="text">
+            <input class="form-control" id="total" name="total" type="text" th:field="*{subTotal}">
           </div>
         </div>
         <table class="table table-bordered">
@@ -62,17 +66,22 @@
               <th class="text-success">Quitar de lista</th>
             </tr>
           </thead>
-          <tbody>
-            <tr th:each="producto, iterador : ${session.carrito}">
-              <td th:text="${producto.codigo}">112122</td>
-              <td th:text="${producto.nombre}">Galleta Soda</td>
+          <tbody>      	
+            <!--  
+            <tr th:if="${carrito=null}">
+			  <td>No existen productos agregados</td>
+			</tr>
+			-->
+            <tr th:if="${carrito!=null and !carrito.isEmpty()}" th:each="detalle : ${carrito}">
+              <td th:text="${detalle.producto.idProducto}">112122</td>
+              <td th:text="${detalle.producto.nombre}">Galleta Soda</td>
               <td class="cantidad">
-                <input type="number" class="form-control " min="1">
+                <input type="number" class="form-control " min="1" th:text="${detalle.cantidad}">
               </td>
-              <td th:text="${producto.precio}">2.00</td>
-              <td th:text="${producto.total}">10.00</td>
+              <td th:text="${detalle.producto.precioVenta}">2.00</td>
+              <td th:text="${detalle.importe}">10.00</td>
               <td class="d-flex justify-content-center">
-                <form th:action="@{/vender/quitar/} + ${iterador.index}" method="post">
+                <form action="@{/vender/quitar/} + ${iterador.index}" method="post">
                   <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>
                   </button>
                 </form>
