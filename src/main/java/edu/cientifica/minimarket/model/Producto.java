@@ -130,15 +130,6 @@ public class Producto {
 	}
 
 	public boolean sinExistencia() {
-		/*
-		boolean result=false;
-		
-		if(stockProducto <= 0) {
-			result=true;
-		}else {
-			result=false;
-		}
-		*/
 		return this.stockProducto <= 0;
 	}
 

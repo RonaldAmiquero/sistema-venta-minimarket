@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,17 +36,11 @@ public class VentaController {
 		model.addAttribute("producto", new Producto());
 		float subTotal=0;
 		List<DetalleVenta> carrito = Venta.obtenerCarrito(request);
-		/*
-		if(carrito==null) {
-			model.addAttribute("carrito", carrito);
-			return "realizarVenta";
-		}
-		*/
 		for (DetalleVenta d: carrito) {
 			subTotal+= d.getImporte(); 
 		}
 		model.addAttribute("subTotal",subTotal);
-		model.addAttribute("carrito", carrito);
+		//model.addAttribute("carrito", carrito);
 		return "realizarVenta";
 	}
 	
@@ -84,4 +79,16 @@ public class VentaController {
 		Venta.guardarCarrito(carrito, request);
 		return "redirect:/venta/";
 	}
+	
+	@PostMapping(value="/quitar/{indice}")
+	public String quitarDelCarrito(@PathVariable("indice") int indice, HttpServletRequest request) {
+		List<DetalleVenta> carrito = Venta.obtenerCarrito(request);
+        if (carrito != null && carrito.size() > 0 && carrito.get(indice) != null) {
+            carrito.remove(indice);
+            Venta.guardarCarrito(carrito, request);
+        }
+        return "redirect:/venta/";
+	}
+	
+	
 }

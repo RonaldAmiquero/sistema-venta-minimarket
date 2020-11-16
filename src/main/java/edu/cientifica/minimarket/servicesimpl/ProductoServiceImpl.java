@@ -47,9 +47,6 @@ public class ProductoServiceImpl implements ProductoService{
 	public Producto buscarCodBarras(String codBarras) {
 		return productoMapper.findProductCodBarras(codBarras);
 	}
-	
-	
-	
-	
+		
 
 }
