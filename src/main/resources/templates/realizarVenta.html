@@ -36,17 +36,15 @@
             </div>
           </div>
         </form>
-        <form action="">
           <div class="form-row form-group">
             <div class="col-0">
-              <a href="" class="btn btn-success">Nueva Venta <i class="fa fa-plus" aria-hidden="true"></i></a>
+              <a th:href="@{/venta/nuevaventa}" class="btn btn-success">Nueva Venta <i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
             <div class="col-0">
               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comprobante">Generar
                 Comprobante</button>
             </div>
           </div>
-        </form>
         <div class="form-row form-group">
           <div class="col-0 totalVenta d-flex align-items-center">
             <label for="total"><strong>SUB TOTAL:</strong></label>
@@ -104,24 +102,23 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="#">
+            <form th:action="@{/comprobante/registrar}" th:object="${comprobante}" method="post">
               <div class="form-row form-group">
                 <div class="col-6">
                   <label for="codComprobante">Código</label>
-                  <input type="text" class="form-control" id="codComprobante">
+                  <input type="number" class="form-control" min="0" readonly="readonly" id="codComprobante" name="codComprobante" th:field="*{idComprobanteP}">
                 </div>
                 <div class="col-6">
-                  <label for="fechaCompr">Fecha (dd/mm/aaaa)</label>
-                  <input type="date" class="form-control" id="fechaCompr" name="fechaComprobante">
+                  <label for="fechaComprobante">Fecha (dd/mm/aaaa)</label>
+                  <input type="date" class="form-control" id="fechaComprobante" name="fechaComprobante" th:field="*{fecha}"> 
                 </div>
               </div>
               <div class="form-row form-group">
                 <div class="col-6">
                   <label for="nomCliente">Nombre del Cliente</label>
-                  <select id="nomCliente" name="nomCliente" class="form-control">
-                    <option value="dsdsd">--Seleccione--
-                    </option>
-                    <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
+                  <select id="nomCliente" name="nomCliente" class="form-control" th:field="*{cliente.id}">
+                    <option th:value="0" th:text="--Seleccione--"></option>
+                    <option th:each="cliente : ${listaClientes}" th:value="${cliente.id}" th:text="${cliente.nombre}">
                     </option>
                   </select>
                 </div>
@@ -132,40 +129,45 @@
               <div class="form-row form-group">
                 <div class="col">
                   <label for="metodoPago">Metodo de Pago</label>
-                  <select name="metodoPago" id="metodoPago" class="form-control">
-                    <option value="">--Seleccione--</option>
-                    <option value="">Tarjeta</option>
-                    <option value="">Efectivo</option>
-                    <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
-                    </option>
+                  <select name="metodoPago" id="metodoPago" class="form-control" th:field="*{metodoPago}">
+                    <option th:value="0">--Seleccione--</option>
+                    <option th:value="Tarjeta">Tarjeta</option>
+                    <option th:value="Efectivo">Efectivo</option>
                   </select>
                 </div>
                 <div class="col">
                   <label for="tipoComprobante">Tipo Comprobante</label>
-                  <select name="tipoComprobante" id="tipoComprobante" class="form-control">
-                    <option value="">--Seleccione--</option>
-                    <option value="">Boleta</option>
-                    <option value="">Factura</option>
+                  <select name="tipoComprobante" id="tipoComprobante" class="form-control" th:field="*{tipoComprobante.idTipoC}">
+                    <option th:value="0" th:text="--Seleccione--"></option>
+                    <option th:each="tipoC : ${listaTipoComprobante}" th:value="${tipoC.idTipoC}" th:text="${tipoC.descripcion}">
+                    </option>
                   </select>
                 </div>
               </div>
               <div class="form-row form-group">
-                <div class="col">
-                  <label for="montoPagar">Sub Total</label>
-                  <input type="text" class="form-control" id="montoPagar">
+                <div class="col">       
+                  <label for="subTotal">Sub Total</label>
+                  <div th:field="*{subTotal}">
+                  <input type="number" class="form-control" th:id="subTotal" th:name="subTotal" th:value="${subTotal}">
+                  </div> 
                 </div>
                 <div class="col">
-                  <label for="efectivoRecib">IGV</label>
-                  <input type="text" class="form-control" id="efectivoRecib">
+                  <label for="igv">IGV</label>
+                  <input type="number" class="form-control" id="igv" name="igv" th:field="*{igv}">
                 </div>
                 <div class="col">
-                  <label for="cambio">Total de Venta</label>
-                  <input type="text" class="form-control" id="cambio">
+                  <label for="totalVenta">Total de Venta</label>
+                  <div th:field="*{totalVenta}">
+                  <input type="number" class="form-control" id="totalVenta" th:value="${subTotal}">
+                  </div>       
                 </div>
               </div>
+              <div class="row justify-content-center">
+              <iframe src='https://www.embed.com/app/calculator/gray-calculator.html' style='width: 300px; height: 300px;' scrolling='no' frameBorder='0'></iframe>
+              </div>     
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="input" class="btn btn-primary">Registrar e Imprimir</button>
+                <input type="submit" class="btn btn-primary" value="Registrar e Imprimir">
               </div>
             </form>
           </div>

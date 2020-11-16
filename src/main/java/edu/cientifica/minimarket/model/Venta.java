@@ -88,12 +88,20 @@ public class Venta {
         }
 		return carrito;
 	}
+	
+	public static void limpiarCarrito(HttpServletRequest request) {
+		guardarCarrito(new ArrayList<DetalleVenta>(), request);
+	}
 
 	@Override
 	public String toString() {
 		return "Venta [idVenta=" + idVenta + ", fecha=" + fecha + ", cliente=" + cliente + ", empleado=" + empleado
 				+ ", tipoComprobante=" + tipoComprobante + "]";
 	}
+
+	
+
+	
 	
 
 }

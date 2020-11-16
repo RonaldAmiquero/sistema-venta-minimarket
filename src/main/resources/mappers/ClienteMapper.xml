@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cientifica.minimarket.mappers.ClienteMapper">
+
+  <resultMap id="clienteResultMap" extends="edu.cientifica.minimarket.mappers.PersonaMapper.personaResultMap"
+              type="edu.cientifica.minimarket.model.Cliente">
+    <result column="dni_cliente" property="dniCliente"/>
+  </resultMap>
+
+  <select id="findAllClientes" resultMap="clienteResultMap">
+		SELECT 
+		pe.id, pe.nombre, pe.email, pe.telefono, pe.direccion, c.dni_cliente 
+		FROM clientes c INNER JOIN personas pe 
+		ON pe.id = c.id_cliente
+  </select>
+</mapper>

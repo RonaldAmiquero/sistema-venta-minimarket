@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.cientifica.minimarket.model.Cliente;
+import edu.cientifica.minimarket.model.ComprobantePago;
 import edu.cientifica.minimarket.model.DetalleVenta;
 import edu.cientifica.minimarket.model.Producto;
+import edu.cientifica.minimarket.model.TipoComprobante;
 import edu.cientifica.minimarket.model.Venta;
+import edu.cientifica.minimarket.services.ClienteService;
+import edu.cientifica.minimarket.services.ComprobantePagoService;
 import edu.cientifica.minimarket.services.ProductoService;
 import edu.cientifica.minimarket.services.VentaService;
 
@@ -30,10 +35,21 @@ public class VentaController {
 	
 	@Autowired
 	VentaService ventaService;
+	
+	@Autowired
+	ComprobantePagoService comprobanteService;
+	
+	@Autowired
+	ClienteService clienteService;
 
 	@GetMapping("/")
 	public String interfazVenta(Model model, HttpServletRequest request) {
 		model.addAttribute("producto", new Producto());
+		ComprobantePago comprobante = new ComprobantePago();
+		comprobante.setIdComprobanteP(comprobanteService.buscarIdComprobante());
+		model.addAttribute("comprobante",comprobante);
+		List<TipoComprobante> listaTipoComprobante = comprobanteService.listarTipoComprobante();
+		List<Cliente> listaClientes= clienteService.listarClientes();
 		float subTotal=0;
 		List<DetalleVenta> carrito = Venta.obtenerCarrito(request);
 		for (DetalleVenta d: carrito) {
@@ -41,6 +57,9 @@ public class VentaController {
 		}
 		model.addAttribute("subTotal",subTotal);
 		//model.addAttribute("carrito", carrito);
+		model.addAttribute("listaTipoComprobante", listaTipoComprobante);
+	    model.addAttribute("listaClientes", listaClientes);
+	    
 		return "realizarVenta";
 	}
 	
@@ -88,6 +107,15 @@ public class VentaController {
             Venta.guardarCarrito(carrito, request);
         }
         return "redirect:/venta/";
+	}
+	
+	@GetMapping("/nuevaventa")
+	public String nuevaVenta(HttpServletRequest request, RedirectAttributes redirectAttrs) {
+		Venta.limpiarCarrito(request);
+		redirectAttrs
+		.addFlashAttribute("mensaje", "Se limpio el carrito correctamente")
+		.addFlashAttribute("clase", "info");
+		return "redirect:/venta/";
 	}
 	
 	

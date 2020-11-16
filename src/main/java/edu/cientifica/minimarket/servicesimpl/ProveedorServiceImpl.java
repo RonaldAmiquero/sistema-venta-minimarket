@@ -14,7 +14,8 @@ public class ProveedorServiceImpl implements ProveedorService {
 	
 	@Autowired
 	ProveedorMapper proveedorMapper;
-
+	
+	@Override
 	public List<Proveedor> listarProveedores() {
 		return proveedorMapper.findAllProveedores();
 	}
