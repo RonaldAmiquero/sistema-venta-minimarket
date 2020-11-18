@@ -6,4 +6,5 @@ import edu.cientifica.minimarket.model.Proveedor;
 
 public interface ProveedorService {
 	public List<Proveedor> listarProveedores();
+	
 }

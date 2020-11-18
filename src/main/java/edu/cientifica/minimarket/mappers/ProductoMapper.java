@@ -24,11 +24,11 @@ public interface ProductoMapper {
 	public int addTabProductoProveedor(Producto producto);
 	
 	@Select("SELECT * FROM productos WHERE id_producto = #{idProducto}")
-	@ResultMap("edu.cientifica.minimarket.mappers.Producto.productoResultMap")
+	@ResultMap("edu.cientifica.minimarket.mappers.ProductoMapper.productoResultMap")
 	public Producto findProductId(int idProducto);
 	
 	@Select("SELECT * FROM productos WHERE codigo_barra = #{codBarras}")
-	@ResultMap("edu.cientifica.minimarket.mappers.Producto.productoResultMap")
+	@ResultMap("edu.cientifica.minimarket.mappers.ProductoMapper.productoResultMap")
 	public Producto findProductCodBarras(String codBarras);
 	
 	@Update("UPDATE productos SET codigo_barra= #{codigoBarras}, nombre= #{nombre}, costo_unitario= #{costoUnitario}, "

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class UsuarioController {
+public class CuentaUsuarioController {
 	
 	//@Autowired UsuarioService usuarioService;
 	
