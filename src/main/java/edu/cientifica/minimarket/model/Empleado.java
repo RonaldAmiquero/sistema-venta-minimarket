@@ -21,6 +21,10 @@ public class Empleado extends Persona{
 		super(id, nombre, email, telefono, direccion);
 		this.dni = dni;
 	}
+	
+	public Empleado(int id) {
+		super(id);
+	}
 
 	public int getDni() {
 		return dni;

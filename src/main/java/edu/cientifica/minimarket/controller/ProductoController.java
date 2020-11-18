@@ -66,6 +66,7 @@ public class ProductoController {
 		
 
 		try {
+			@SuppressWarnings("unused")
 			int result =productoService.registrarProducto(producto);
 		} catch (Exception e) {
 			LOG.info("ERROR" + e.getMessage());

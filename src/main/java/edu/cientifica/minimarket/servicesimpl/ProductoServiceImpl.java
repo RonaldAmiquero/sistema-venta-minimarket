@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.cientifica.minimarket.mappers.ProductoMapper;
+import edu.cientifica.minimarket.model.DetalleVenta;
 import edu.cientifica.minimarket.model.Producto;
 import edu.cientifica.minimarket.services.ProductoService;
 
@@ -47,6 +48,16 @@ public class ProductoServiceImpl implements ProductoService{
 	public Producto buscarCodBarras(String codBarras) {
 		return productoMapper.findProductCodBarras(codBarras);
 	}
-		
+
+	@Override
+	public int actualizarProducto(Producto producto) {
+		int result;
+		result = productoMapper.updateProducto(producto);
+		LOG.info("Numero de registros afectados : " + result);
+		return result;
+	}
+
+	
+	
 
 }

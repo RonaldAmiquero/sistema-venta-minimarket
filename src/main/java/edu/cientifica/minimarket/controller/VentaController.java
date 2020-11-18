@@ -1,6 +1,5 @@
 package edu.cientifica.minimarket.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,6 +116,7 @@ public class VentaController {
 		.addFlashAttribute("clase", "info");
 		return "redirect:/venta/";
 	}
+	
 	
 	
 }

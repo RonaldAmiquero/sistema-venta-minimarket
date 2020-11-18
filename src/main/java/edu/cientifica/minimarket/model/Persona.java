@@ -48,6 +48,11 @@ public class Persona {
 		this.id = id;
 		this.nombre = nombre;
 	}
+	
+	public Persona(int id) {
+		super();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

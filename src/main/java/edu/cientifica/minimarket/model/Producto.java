@@ -132,6 +132,10 @@ public class Producto {
 	public boolean sinExistencia() {
 		return this.stockProducto <= 0;
 	}
+	
+	public void restarExistencia(int cantidad) {
+		this.stockProducto -= cantidad;
+	}
 
 	@Override
 	public String toString() {
