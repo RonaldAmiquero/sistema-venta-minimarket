@@ -10,6 +10,7 @@ public interface ComprobantePagoService {
 	public List<TipoComprobante> listarTipoComprobante();
 	public int buscarIdComprobante();
 	public int guardarComprobante(ComprobantePago comprobante);
+	public List<ComprobantePago> listarComprobante();
 	
 
 }

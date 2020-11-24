@@ -11,6 +11,6 @@
 	<result column="stock_producto" property="stockProducto" />
 	<result column="fecha_vencimiento" property="fechaVencimiento" />
 	<association column="id_categoria" property="categoria" javaType="edu.cientifica.minimarket.model.Categoria"
-			resultMap="edu.cientifica.minimarket.mappers.CategoriaMapper.categoriaResultMap" />	
+			resultMap="edu.cientifica.minimarket.mappers.CategoriaMapper.categoriaResultMap" />
   </resultMap>
 </mapper>

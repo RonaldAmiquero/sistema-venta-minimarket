@@ -39,6 +39,12 @@ public class ComprobantePagoServiceImpl implements ComprobantePagoService {
 		return result;
 	}
 
+	@Override
+	public List<ComprobantePago> listarComprobante() {
+		
+		return comprobantePagoMapper.findAllComprobantePago();
+	}
+
 	
 
 }

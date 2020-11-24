@@ -25,4 +25,6 @@ public interface ComprobantePagoMapper {
 			+ "VALUES (#{idComprobanteP}, #{fecha}, #{subTotal}, #{igv}, #{totalVenta}, #{metodoPago}, #{tipoComprobante.idTipoC})")
 	public int insertComprobante(ComprobantePago comprobante);
 
+	public List<ComprobantePago> findAllComprobantePago();
+
 }

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.cientifica.minimarket.mappers.ProductoMapper;
-import edu.cientifica.minimarket.model.DetalleVenta;
 import edu.cientifica.minimarket.model.Producto;
+import edu.cientifica.minimarket.model.ProductoProveedor;
 import edu.cientifica.minimarket.services.ProductoService;
 
 @Service
@@ -30,7 +30,7 @@ public class ProductoServiceImpl implements ProductoService{
 
 	@Override
 	public List<Producto> listarProducto() {
-		return null;
+		return productoMapper.findAllProducts();
 	}
 
 	@Override
@@ -55,6 +55,12 @@ public class ProductoServiceImpl implements ProductoService{
 		result = productoMapper.updateProducto(producto);
 		LOG.info("Numero de registros afectados : " + result);
 		return result;
+	}
+
+	@Override
+	public ProductoProveedor buscarIdProveedor(int idProducto) {
+		
+		return productoMapper.findIdProveedor(idProducto);
 	}
 
 	

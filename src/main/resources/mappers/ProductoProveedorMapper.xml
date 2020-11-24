@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cientifica.minimarket.mappers.ProductoProveedorMapper">
+
+  <resultMap id="productoProveedorResultMap" type="edu.cientifica.minimarket.model.ProductoProveedor" >
+	<result column="id_producto" property="idProducto" />
+	<result column="id_proveedor" property="idProveedor"/>
+  </resultMap>
+</mapper>
+
+<!-- 
+	
+	<association column="id_producto" property="producto" javaType="edu.cientifica.minimarket.model.Producto"
+			resultMap="edu.cientifica.minimarket.mappers.ProductoMapper.productoResultMap" />
+	<association column="id_proveedor" property="proveedor" javaType="edu.cientifica.minimarket.model.Proveedor"
+			resultMap="edu.cientifica.minimarket.mappers.ProveedorMapper.proveedorResultMap" />
+	
+	
+	
+	-->

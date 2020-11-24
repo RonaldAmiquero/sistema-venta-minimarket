@@ -13,7 +13,7 @@
         <link rel="stylesheet" th:href="@{/css/principal.css}">
     	<link rel="stylesheet" th:href="@{/css/registrarProductos.css}">
 
-    <title>Minimarket Esmeralda</title>
+    <title>Editar Producto</title>
   </head>
 
   <body>
@@ -22,7 +22,7 @@
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
-        <form th:action="@{/producto/registrar}" method="post" th:object="${Producto}" >
+        <form th:action="@{/producto/actualizar}" method="post" th:object="${Producto}" >
           <div class="form-row form-group">
             <div class="col">
               <label for="idProducto">Id</label>
@@ -42,7 +42,8 @@
               <label for="categoria">Categoria</label>
               <select id="categoria" name="categoria" class="form-control" th:field="*{categoria.idCategoria}">
                 <option th:value="0" th:text="---Seleccionar---"></option>
-                <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}">
+                <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}"
+                th:selected="(${categoria.idCategoria}==*{categoria.idCategoria})">
                 </option>
               </select>
             </div>
@@ -72,14 +73,15 @@
               <label for="proveedor">Proveedor</label>
               <select id="proveedor" name="proveedor" class="form-control" th:field="*{proveedor.id}" >           
                 <option th:value="0" th:text="--Seleccione--"></option>
-                <option th:each="proveedor : ${listaProveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}">
+                <option th:each="proveedor : ${listaProveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}"
+                th:selected="(${proveedor.id}==*{proveedor.id})">
               </select>
             </div>
             
           </div>
           <div class="form-row">
             <div class="col-0 offset-5">
-              <input type="submit" class="btn btn-primary" value="Guardar">
+              <input type="submit" class="btn btn-primary" value="Actualizar">
             </div>
             <div class="col">
               <a th:href="@{/producto/lista}" class="btn btn-primary">Ver Productos</a>
