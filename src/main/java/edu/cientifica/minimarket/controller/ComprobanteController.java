@@ -39,7 +39,9 @@ public class ComprobanteController {
         }
         
         @SuppressWarnings("unused")
-		int resultVenta= ventaService.guardarVenta(new Venta(ventaService.asignarIdVenta(), comprobante.getFecha(), comprobante.getCliente(), new Empleado(3),comprobante.getTipoComprobante()));
+        int resultComprobante= comprobanteService.guardarComprobante(comprobante);
+        @SuppressWarnings("unused")
+		int resultVenta= ventaService.guardarVenta(new Venta(ventaService.asignarIdVenta(),comprobante.getCliente(), new Empleado(3), comprobante));
 
         for (DetalleVenta detalleV : carrito) {
  
@@ -52,13 +54,10 @@ public class ComprobanteController {
             int resultIngreso= ventaService.registrarDetalleVenta(detalleV);
         }
         
-        @SuppressWarnings("unused")
-        int resultComprobante= comprobanteService.guardarComprobante(comprobante);
-        
         Venta.limpiarCarrito(request);
         // e indicamos una venta exitosa
         redirectAttrs
-                .addFlashAttribute("mensaje", "Venta realizada correctamente")
+                .addFlashAttribute("mensaje", "Venta realizada correctamente ✔")
                 .addFlashAttribute("clase", "success");
 		return "redirect:/venta/";
 	}

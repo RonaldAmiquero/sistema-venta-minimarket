@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +26,13 @@ import edu.cientifica.minimarket.services.ClienteService;
 import edu.cientifica.minimarket.services.ComprobantePagoService;
 import edu.cientifica.minimarket.services.ProductoService;
 import edu.cientifica.minimarket.services.VentaService;
+import edu.cientifica.minimarket.utilidades.FechasVenta;
 
 @Controller
 @RequestMapping("/venta")
 public class VentaController {
+	
+	protected final Log LOG =  LogFactory.getLog(this.getClass());
 	
 	@Autowired
 	ProductoService productoService;
@@ -67,14 +72,14 @@ public class VentaController {
 		List<DetalleVenta> carrito = Venta.obtenerCarrito(request);
 		Producto productoBuscadoPorCodigo = productoService.buscarCodBarras(producto.getCodigoBarras());
 		if(productoBuscadoPorCodigo == null) {
-			redirectAttrs.addFlashAttribute("mensaje", "El producto con el codigo " + producto.getIdProducto() + " no existe")
+			redirectAttrs.addFlashAttribute("mensaje", "El producto con el codigo '" + producto.getCodigoBarras() + "' no existe 🤷")
 			.addFlashAttribute("clase","warning");
 			return "redirect:/venta/";
 		}
 		
 		if(productoBuscadoPorCodigo.sinExistencia()) {
 			redirectAttrs
-			.addFlashAttribute("mensaje", "el producto esta agotado")
+			.addFlashAttribute("mensaje", "el producto esta agotado 🤷‍♀️")
 			.addFlashAttribute("clase", "warning");
 			return "redirect:/venta/";
 		}
@@ -112,9 +117,33 @@ public class VentaController {
 	public String nuevaVenta(HttpServletRequest request, RedirectAttributes redirectAttrs) {
 		Venta.limpiarCarrito(request);
 		redirectAttrs
-		.addFlashAttribute("mensaje", "Se limpio el carrito correctamente")
+		.addFlashAttribute("mensaje", "Se limpio el carrito correctamente 🛒")
 		.addFlashAttribute("clase", "info");
 		return "redirect:/venta/";
+	}
+	
+	@GetMapping("/lista")
+	public String listarVenta(Model model) {
+		List<Venta> ventas = ventaService.listarVentas();
+		model.addAttribute("ventas", ventas);
+		model.addAttribute("fecha", new FechasVenta());
+		return "ventasRegistradas";
+	}
+	
+	@PostMapping("/buscar")
+	public String buscarVentas(@ModelAttribute("fecha") FechasVenta fechaVenta, Model model, RedirectAttributes redirectAttrs) {
+		LOG.info("Fechas:  " + fechaVenta);
+		if(fechaVenta.getFechaInicio()==null){
+			redirectAttrs
+			.addFlashAttribute("mensaje", "Tienes que seleccionar el rango de fechas")
+			.addFlashAttribute("clase", "info");
+			return "redirect:/venta/lista";
+		}
+		List<Venta> ventas = ventaService.buscarVenta(fechaVenta.getFechaInicio(),fechaVenta.getFechaFin());
+		LOG.info("fecha:  "+ fechaVenta.getFechaInicio());
+		LOG.info("ventas:  " + ventas);
+		model.addAttribute("ventas", ventas);
+		return "ventasRegistradas_buscar";
 	}
 	
 	

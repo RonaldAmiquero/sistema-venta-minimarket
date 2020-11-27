@@ -141,14 +141,29 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/buscar")
-	public String buscarProducto(@ModelAttribute("producto") Producto producto, Model model) {
+	public String buscarProducto(@ModelAttribute("producto") Producto producto, Model model, RedirectAttributes redirectAttrs) {
 		List<Producto> productos = new ArrayList<Producto>();
-		LOG.info("Producto" + producto);
+		LOG.info("Producto " + producto);
 		if(producto.getCodigoBarras().equals("")){
 			return ("redirect:/producto/lista");
 		}
-		Producto productoEncontrado = productoService.buscarCodBarras(producto.getCodigoBarras());
-		productos.add(productoEncontrado);
+		try {
+			Producto productoEncontrado = productoService.buscarCodBarras(producto.getCodigoBarras());
+			if (productoEncontrado == null) {
+				redirectAttrs
+				.addFlashAttribute("mensaje", "El producto con ese codigo no existe 🤷‍")
+				.addFlashAttribute("clase", "warning");
+				return ("redirect:/producto/lista");
+			}
+			productos.add(productoEncontrado);
+		} catch (Exception e) {
+			LOG.info(e.getMessage());
+			redirectAttrs
+			.addFlashAttribute("mensaje", "Ocurrio un error en la base de datos")
+			.addFlashAttribute("clase", "warning");
+			
+		}
+		
 		model.addAttribute("productos", productos);
 		
 		return "gestionarProducto_buscar";

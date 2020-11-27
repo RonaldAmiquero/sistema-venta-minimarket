@@ -1,13 +1,17 @@
 package edu.cientifica.minimarket.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class EntradaProducto {
 	
 	private int idEproducto;
-	private int nroFactura;
+	private String nroFactura;
 	private Date fechaIngreso;
-	private Empleado empleado;
+	private Proveedor proveedor;
 	
 	
 	public EntradaProducto() {
@@ -15,12 +19,12 @@ public class EntradaProducto {
 	}
 
 
-	public EntradaProducto(int idEproducto, int nroFactura, Date fechaIngreso, Empleado empleado) {
+	public EntradaProducto(int idEproducto, String nroFactura, Date fechaIngreso, Proveedor proveedor) {
 		super();
 		this.idEproducto = idEproducto;
 		this.nroFactura = nroFactura;
 		this.fechaIngreso = fechaIngreso;
-		this.empleado = empleado;
+		this.proveedor = proveedor;
 	}
 
 
@@ -40,12 +44,12 @@ public class EntradaProducto {
 	}
 
 
-	public int getNroFactura() {
+	public String getNroFactura() {
 		return nroFactura;
 	}
 
 
-	public void setNroFactura(int nroFactura) {
+	public void setNroFactura(String nroFactura) {
 		this.nroFactura = nroFactura;
 	}
 
@@ -60,21 +64,37 @@ public class EntradaProducto {
 	}
 
 
-	public Empleado getEmpleado() {
-		return empleado;
+	public Proveedor getProveedor() {
+		return proveedor;
 	}
 
 
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+
+	public static void guardarCarrito(List<DetalleEntradaProducto> carrito, HttpServletRequest request) {
+		request.getSession().setAttribute("carritoep", carrito);
+	}
+	
+	public static List<DetalleEntradaProducto> obtenerCarrito(HttpServletRequest request){
+		//Es una anotación para suprimir las advertencias de compilación sobre operaciones genéricas no verificadas (no excepciones),
+		@SuppressWarnings("unchecked")
+		List<DetalleEntradaProducto> carrito = (List<DetalleEntradaProducto>) request.getSession().getAttribute("carritoep");
+		if (carrito == null) {
+            carrito = new ArrayList<DetalleEntradaProducto>();
+        }
+		return carrito;
 	}
 
 
 	@Override
 	public String toString() {
 		return "EntradaProducto [idEproducto=" + idEproducto + ", nroFactura=" + nroFactura + ", fechaIngreso="
-				+ fechaIngreso + ", empleado=" + empleado + "]";
+				+ fechaIngreso + ", proveedor=" + proveedor + "]";
 	}
+
 	
 	
 

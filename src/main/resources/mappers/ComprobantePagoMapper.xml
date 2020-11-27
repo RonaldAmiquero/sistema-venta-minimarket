@@ -2,10 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.cientifica.minimarket.mappers.ComprobantePagoMapper">
 
+  <resultMap id="comprobantePagoResultMap" type="edu.cientifica.minimarket.model.ComprobantePago">
+    <id column="id_cp" property="idComprobanteP"/>
+	<result column="fecha" property="fecha" />
+	<result column="subtotal" property="subTotal" />
+	<result column="igv" property="igv" />
+	<result column="total_venta" property="totalVenta" />
+	<result column="metodo_pago" property="metodoPago" />
+	<association column="id_tc" property="tipoComprobante" javaType="edu.cientifica.minimarket.model.TipoComprobante"
+			resultMap="edu.cientifica.minimarket.mappers.ComprobantePagoMapper.tipoComprobanteResultMap" />	
+  </resultMap>
+
   <resultMap id="tipoComprobanteResultMap" type="edu.cientifica.minimarket.model.TipoComprobante">
     <id column="id_tc" property="idTipoC"/>
 	<result column="descripcion" property="descripcion" />
   </resultMap>
 
-
+<!-- 
+  <select id="findAllProveedores" resultMap="proveedorResultMap">
+		SELECT 
+		pe.id, pe.nombre, pe.email, pe.telefono, pe.direccion, p.ruc, p.nombre_empresa,p.comercializa 
+		FROM proveedores p INNER JOIN personas pe 
+		ON pe.id = p.id_proveedor
+  </select>
+-->
 </mapper>

@@ -1,5 +1,8 @@
 package edu.cientifica.minimarket.servicesimpl;
 
+import java.sql.Date;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,18 @@ public class VentaServiceImpl implements VentaService{
 		result = ventaMapper.insertVenta(venta);
 		LOG.info("Numero de registros afectados : " + result);
 		return result;
+	}
+
+	@Override
+	public List<Venta> listarVentas() {
+		
+		return ventaMapper.findAllVentas();
+	}
+
+	@Override
+	public List<Venta> buscarVenta(Date fechaInicio, Date fechaFin) {
+		
+		return ventaMapper.findVentas(fechaInicio,fechaFin);
 	}
 	
 	

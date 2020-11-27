@@ -12,9 +12,6 @@ import edu.cientifica.minimarket.model.Categoria;
 @Mapper
 public interface CategoriaMapper {
 	
-	/*@Select("SELECT * FROM unidadinmobiliaria")
-	@ResultMap("edu.cientifica.convivirx.mappers.UnidadInmobiliariaMapper.unidadInmobiliariaResultMap")
-	public List<UnidadInmobiliaria> findAllUnidadInmobiliaria();*/
 	
 	@Select("SELECT * FROM categorias")
 	@ResultMap("edu.cientifica.minimarket.mappers.CategoriaMapper.categoriaResultMap")

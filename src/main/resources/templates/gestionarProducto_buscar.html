@@ -63,7 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="producto : ${productos}">
+            <tr th:if="${productos!=null and !productos.isEmpty()}" th:each="producto : ${productos}">
               <td th:text="${producto.idProducto}">1</td>
               <td th:text="${producto.codigoBarras}">codb00001</td>
               <td th:text="${producto.nombre}">gaseosa kr pequeño</td>
@@ -73,7 +73,7 @@
               <td th:text="${producto.fechaVencimiento}">2020-03-04</td>
               <td class="d-flex justify-content-center">
                 <a class="btn btn-success" th:href="@{'/producto/edit/'+${producto.idProducto}}">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                  Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
               </td>
             </tr>
           </tbody>

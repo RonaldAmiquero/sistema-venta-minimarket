@@ -23,6 +23,49 @@ public class DetalleEntradaProducto {
 		this.costoUnitario = costoUnitario;
 		this.fechavNuevo = fechavNuevo;
 	}
+	
+	
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public EntradaProducto getEntradaProducto() {
+		return entradaProducto;
+	}
+
+	public void setEntradaProducto(EntradaProducto entradaProducto) {
+		this.entradaProducto = entradaProducto;
+	}
+
+	public int getCantidadIngresado() {
+		return cantidadIngresado;
+	}
+
+	public void setCantidadIngresado(int cantidadIngresado) {
+		this.cantidadIngresado = cantidadIngresado;
+	}
+
+	public double getCostoUnitario() {
+		return costoUnitario;
+	}
+
+	public void setCostoUnitario(double costoUnitario) {
+		this.costoUnitario = costoUnitario;
+	}
+
+	public Date getFechavNuevo() {
+		return fechavNuevo;
+	}
+
+	public void setFechavNuevo(Date fechavNuevo) {
+		this.fechavNuevo = fechavNuevo;
+	}
+	
 
 	@Override
 	public String toString() {

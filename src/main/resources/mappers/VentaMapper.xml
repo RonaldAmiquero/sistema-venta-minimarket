@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cientifica.minimarket.mappers.VentaMapper">
+
+  <resultMap id="ventaResultMap" type="edu.cientifica.minimarket.model.Venta">
+    <id column="id_venta" property="idVenta"/>
+	<association column="id_cliente" property="cliente" javaType="edu.cientifica.minimarket.model.Cliente"
+			resultMap="edu.cientifica.minimarket.mappers.ClienteMapper.clienteResultMap" />
+	<association column="id_empleado" property="empleado" javaType="edu.cientifica.minimarket.model.Empleado"
+			resultMap="edu.cientifica.minimarket.mappers.EmpleadoMapper.empleadoResultMap" />	
+	<association column="id_cp" property="comprobantePago" javaType="edu.cientifica.minimarket.model.ComprobantePago"
+			resultMap="edu.cientifica.minimarket.mappers.ComprobantePagoMapper.comprobantePagoResultMap" />
+  </resultMap>
+
+
+  <select id="findAllVentas" resultMap="ventaResultMap">
+		SELECT v.id_venta, p.nombre, cp.fecha, cp.total_venta, cp.metodo_pago, cp.id_tc 
+		FROM ventas v INNER JOIN personas p INNER JOIN comprobantepago cp 
+		ON (v.id_cliente = p.id and v.id_cp = cp.id_cp)
+  </select>
+
+</mapper>

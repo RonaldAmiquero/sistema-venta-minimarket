@@ -65,17 +65,17 @@
           <div class="form-row form-group">
             <div class="col-6">
               <label for="nombre">Nombre del producto</label>
-              <input type="text" class="form-control" th:id="nombre" th:name="nombre" th:value="${producto.nombre}">
+              <input type="text" class="form-control" th:id="nombre" th:name="nombre" th:field="${productoe.nombre}">
             </div>
             <div class="col-3">
               <label for="stockProducto">Existencia</label>
               <input type="number" class="form-control" th:id="stockProducto" th:name="stockProducto"
-                th:value="${producto.stockProducto}">
+                th:value="${productoe.stockProducto}">
             </div>
             <div class="col-3">
               <label for="costoUnitario">Costo Unitario</label>
               <input type="number" class="form-control" th:id="costoUnitario" th:name="costoUnitario"
-                th:value="${producto.costoUnitario}">
+                th:value="${productoe.costoUnitario}">
             </div>
           </div>
 
@@ -87,15 +87,15 @@
               <div class="col-6">
                 <label for="codigoBarras">Código de barras</label>
                 <input autofocus autocomplete="off" class="form-control" th:id="codigoBarras" th:name="codigoBarras" type="text"
-                  placeholder="repite el codigo de barras" th:field="${producto.codigoBarras}">
+                  placeholder="repite el codigo de barras" th:field="${productoe.codigoBarras}">
               </div>
               <div class="col-3">
                 <label for="cantIngresar">Cantidad a Ingresar</label>
-                <input type="number" class="form-control" id="cantIngresar" name="cantIngresar" th:field="*{cantidadIngresado}">
+                <input type="number" step="any" min="0" class="form-control" id="cantIngresar" name="cantIngresar" th:field="*{cantidadIngresado}">
               </div>
               <div class="col-3">
                 <label for="costoUnitarioNuevo">Costo Unitario Nuevo</label>
-                <input type="number" class="form-control" id="costoUnitarioNuevo" name="costoUnitarioNuevo" th:field="*{costoUnitario}">
+                <input type="number" step="any" min="0" class="form-control" id="costoUnitarioNuevo" name="costoUnitarioNuevo" th:field="*{costoUnitario}">
               </div>
             </div>
             <div class="form-row form-group">
