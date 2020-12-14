@@ -70,7 +70,9 @@
               <td th:text="${detalle.producto.idProducto}">112122</td>
               <td th:text="${detalle.producto.nombre}">Galleta Soda</td>
               <td class="cantidad">
-                <input type="number" class="form-control " min="1" th:value="${detalle.cantidad}">
+              	<form th:action="@{/venta/}" method="post">
+                	<input type="number" class="form-control " min="1" th:value="${detalle.cantidad}">
+                </form>
               </td>
               <td th:text="${detalle.producto.precioVenta}">2.00</td>
               <td th:text="${detalle.importe}">10.00</td>
@@ -89,7 +91,7 @@
     <!-- Modal -->
     <div class="modal fade" id="comprobante" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Comprobante de Venta</h5>
@@ -106,7 +108,7 @@
                 </div>
                 <div class="col-6">
                   <label for="fechaComprobante">Fecha (dd/mm/aaaa)</label>
-                  <input type="date" class="form-control" id="fechaComprobante" name="fechaComprobante" th:field="*{fecha}"> 
+                  <input type="date" class="form-control" th:required="required" id="fechaComprobante" name="fechaComprobante" th:field="*{fecha}"> 
                 </div>
               </div>
               <div class="form-row form-group">

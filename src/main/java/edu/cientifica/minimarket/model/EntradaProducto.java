@@ -87,6 +87,10 @@ public class EntradaProducto {
         }
 		return carrito;
 	}
+	
+	public static void limpiarCarrito(HttpServletRequest request) {
+		guardarCarrito(new ArrayList<DetalleEntradaProducto>(), request);
+	}
 
 
 	@Override

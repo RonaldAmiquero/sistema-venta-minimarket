@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css}"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="icon" th:href="@{/img/favicon.jpg}" type="image/jpg">
+    <link rel="stylesheet" th:href="@{/css/principal.css}">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+    
+    <style>
+      #formPrincipal {
+        width: 700px;
+      }
+
+      .formSalidaP {
+        padding-top: 60px;
+      }
+
+      .titulo {
+        font-size: 30px;
+        margin-bottom: 0px;
+      }
+
+      legend {
+        font-size: 17px;
+        margin-bottom: 0px;
+      }
+    </style>
+
+    <title>Salida de Productos</title>
+  </head>
+
+  <body>
+  
+    <nav th:replace="principal :: nav">
+    </nav>
+    
+    <section class="formSalidaP">
+      <div id="formPrincipal" class="container">
+        <h2 class="titulo text-center">Salida de Producto</h2>
+        <fieldset class="border border-secondary p-2 w-auto">
+          <legend class="w-auto">Datos del producto</legend>
+          <form action="">
+            <div class="form-row form-group justify-content-end">
+              <div class="col-1 p-1 d-flex justify-content-end">
+                <label for="nro">Nro.</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" id="nro">
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <label for="cod-barra">Código de barra</label>
+                <input type="text" class="form-control" id="cod-barra" placeholder="Escanea el código o escribelo">
+              </div>
+              <div class="col">
+                <label for="fechaSalida">Fecha (dd/mm/aaaa)</label>
+                <input type="date" class="form-control" id="fechaSalida" name="fechaSalida">
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <label for="cantidad">Cantidad</label>
+                <input type="text" class="form-control" id="cantidad">
+              </div>
+              <div class="col">
+                <label for="tipoMovimiento">Tipo de movimiento</label>
+                <select id="tipoMovimiento" name="tipoMovimiento" class="form-control">
+                  <option value="dsdsd">--Seleccione--
+                  </option>
+                  <option th:each="area : ${listadoAreas}" th:value="${area.idArea}" th:text="${area.nombreLargo}">
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col-12">
+                <label for="nombreProveedor">Nombre del proveedor</label>
+              </div>
+              <div class="col-6">
+                <input type="text" class="form-control" id="nombreProveedor">
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-primary">Ver
+                  proveedor</button>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col-6">
+                <label for="motivoMovimiento">Motivo de movimiento</label>
+                <textarea class="form-control" id="motivoMovimiento"
+                  placeholder="Detalle el motivo de tu movimiento"></textarea>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col-2">
+                <input type="submit" class="form-control btn-primary" value="Enviar">
+              </div>
+            </div>
+          </form>
+        </fieldset>
+      </div>
+    </section>
+    <section class="resultadoSalidaP pt-3">
+      <div class="container">
+        <table class="table table-bordered">
+          <tr class="cabecera">
+            <th>Id</th>
+            <th>Cod. Barra</th>
+            <th>Cantidad</th>
+            <th>Tipo movimiento</th>
+            <th>Proveedor</th>
+            <th>Motivo Movimiento</th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Cod0005</td>
+            <td>4</td>
+            <td>Devolucion</td>
+            <td>luna sac</td>
+            <td>Estos productos no son conformes a lo pedido</td>
+            <td>
+              <button class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </section>
+
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"></script>
+  </body>
+
+
+</html>

@@ -22,6 +22,10 @@
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
         <form th:action="@{/producto/actualizar}" method="post" th:object="${Producto}" >
           <div class="form-row form-group">
             <div class="col">

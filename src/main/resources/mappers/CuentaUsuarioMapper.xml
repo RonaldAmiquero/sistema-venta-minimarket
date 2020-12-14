@@ -2,5 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.cientifica.minimarket.mappers.CuentaUsuarioMapper">
 
+  <resultMap id="usuarioResultMap" type="edu.cientifica.minimarket.model.CuentaUsuario">
+    <id column="id_cuenta" property="idCuenta" />
+    <result column="usuario" property="usuario" />
+	<result column="contrasenha" property="contrasenha" />
+    <result column="tipo_usuario" property="tipoUsuario" />
+    <association column="id_empleado" property="empleado" javaType="edu.cientifica.minimarket.model.Empleado"
+			resultMap="edu.cientifica.minimarket.mappers.EmpleadoMapper.empleadoResultMap" />
+	<association column="id_permiso" property="permisos" javaType="edu.cientifica.minimarket.model.Permiso"
+			resultMap="edu.cientifica.minimarket.mappers.PermisoMapper.permisoResultMap" />
+	
+  </resultMap>
 
+  <select id="encontrarNombreUsuario" resultMap="usuarioResultMap">
+	 Select
+	     p.id,
+	     p.nombre,
+	     p.email,
+		 p.telefono,
+	     p.direccion,
+	     e.dni_empleado,
+	     e.apellido,
+	     e.genero,
+	     cu.id_cuenta,
+	     cu.usuario,
+	     cu.contrasenha,
+	     cu.tipo_usuario,
+	     cu.id_empleado
+	  From empleados e
+	    Inner Join personas p
+	    On e.id_empleado = p.id
+	    Inner Join cuentausuarios cu 
+	    On e.id_empleado = cu.id_empleado
+	    Left join cuentausuarios_permisos up
+	    on cu.id_cuenta = up.id_cuenta
+	    Left join permisos pe
+	    on up.id_permiso = pe.id_permiso
+	  Where cu.usuario = #{usuario};
+  </select>
 </mapper>

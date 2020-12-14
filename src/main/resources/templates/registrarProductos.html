@@ -22,6 +22,10 @@
     <section class="formProducto">
       <div class="container">
         <h1 class="titulo text-center">Registrar Productos</h1>
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>
         <form th:action="@{/producto/registrar}" method="post" th:object="${Producto}" >
           <div class="form-row form-group">
             <div class="col">
@@ -30,31 +34,37 @@
             </div>
             <div class="col">
               <label for="nombreProducto">Nombre del Producto</label>
-              <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" th:field="*{nombre}">
+              <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''">
+              <div class="invalid-feedback" th:errors="*{nombre}"></div>
             </div>
           </div>
           <div class="form-row form-group">
             <div class="col">
               <label for="codBarras">Código de Barras</label>
-              <input type="text" class="form-control" id="codBarras" name="codBarras" th:field="*{codigoBarras}">
+              <input type="text" class="form-control" id="codBarras" name="codBarras" th:field="*{codigoBarras}" th:classappend="${#fields.hasErrors('codigoBarras')} ? 'is-invalid' : ''">
+              <div class="invalid-feedback" th:errors="*{codigoBarras}"></div>
             </div>
             <div class="col">
               <label for="categoria">Categoria</label>
-              <select id="categoria" name="categoria" class="form-control" th:field="*{categoria.idCategoria}">
+              <select id="categoria" name="categoria" class="form-control" th:field="*{categoria.idCategoria}" th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid' : ''">
                 <option th:value="0" th:text="---Seleccionar---"></option>
                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}">
                 </option>
               </select>
+              <div class="invalid-feedback" th:errors="*{categoria}"></div>
             </div>
           </div>
           <div class="form-row form-group">
             <div class="col">
               <label for="stock">Stock Producto</label>
-              <input type="number" min="0" class="form-control" id="stock" name="stock" th:field="*{stockProducto}">
+              <input type="number" min="0" class="form-control" id="stock" name="stock" th:field="*{stockProducto}" th:classappend="${#fields.hasErrors('stockProducto')} ? 'is-invalid' : ''">
+              <div class="invalid-feedback" th:errors="*{stockProducto}"></div>
             </div>
             <div class="col">
               <label for="costoUnitario">Costo Unitario</label>
-              <input type="number" step="any" min="0" class="form-control" id="costoUnitario" name="costoUnitario" th:field="*{costoUnitario}">
+              <input type="number" step="any" min="0" class="form-control" id="costoUnitario" name="costoUnitario" th:field="*{costoUnitario}"
+              th:classappend="${#fields.hasErrors('costoUnitario')} ? 'is-invalid' : ''">
+              <div class="invalid-feedback" th:errors="*{costoUnitario}"></div>
             </div>
           </div>
           <div class="form-row form-group">
@@ -64,7 +74,9 @@
             </div>
             <div class="col">
               <label for="fvencimiento">Fecha Vencimiento</label>
-              <input type="date" class="form-control" id="fvencimiento" name="fvencimiento" th:field="*{fechaVencimiento}">
+              <input type="date" class="form-control" id="fvencimiento" name="fvencimiento" th:field="*{fechaVencimiento}" 
+              th:classappend="${#fields.hasErrors('fechaVencimiento')} ? 'is-invalid' : ''">
+              <div class="invalid-feedback"></div>
             </div>
           </div>
           <div class="form-row form-group">
@@ -72,7 +84,7 @@
               <label for="proveedor">Proveedor</label>
               <select id="proveedor" name="proveedor" class="form-control" th:field="*{proveedor.id}" >           
                 <option th:value="0" th:text="--Seleccione--"></option>
-                <option th:each="proveedor : ${listaProveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}">
+                <option th:each="proveedor : ${listaProveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}"></option>
               </select>
             </div>
             

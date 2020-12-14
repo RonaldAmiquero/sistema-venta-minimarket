@@ -9,4 +9,11 @@
 	<result column="genero" property="genero"/>
   </resultMap>
 
+  <select id="findAllEmpleados" resultMap="empleadoResultMap">
+		SELECT 
+		pe.id, pe.nombre, pe.email, pe.telefono, pe.direccion, e.dni_empleado,e.apellido,e.genero 
+		FROM empleados e INNER JOIN personas pe 
+		ON pe.id = e.id_empleado
+  </select>
+
 </mapper>

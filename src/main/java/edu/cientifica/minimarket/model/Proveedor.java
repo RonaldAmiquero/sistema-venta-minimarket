@@ -1,14 +1,21 @@
 package edu.cientifica.minimarket.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Proveedor extends Persona{
+	@NotNull
 	private int ruc;
+	@NotNull
+	@Size(min=3, max=50)
 	private String nombreEmpresa;
+	@NotNull
 	private String comercializa;
 	
 	public Proveedor() {}
 	
-	public Proveedor(int id, String nombreRepresentante, String email, int telefono, String direccion, int ruc, String nombreEmpresa,
-			String comercializa) {
+	public Proveedor(@NotNull int id, @NotNull @Size(min=3, max=50) String nombreRepresentante, String email, int telefono, String direccion, int ruc, String nombreEmpresa,
+			@NotNull String comercializa) {
 		super(id, nombreRepresentante, email, telefono, direccion);
 		this.ruc = ruc;
 		this.nombreEmpresa = nombreEmpresa;
@@ -68,6 +75,8 @@ public class Proveedor extends Persona{
 	public String toString() {
 		return "Proveedor ["+ super.toString() + ", ruc=" + ruc + ", nombreEmpresa=" + nombreEmpresa + ", comercializa=" + comercializa + "]";
 	}
+
+	
 	
 	
 }

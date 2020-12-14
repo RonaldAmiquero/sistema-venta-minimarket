@@ -2,15 +2,37 @@ package edu.cientifica.minimarket.model;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Producto {
+	
 	private int idProducto;
+	
+	@NotEmpty(message="Debes especificar el codigo de barras")
 	private String codigoBarras;
+	
+	@NotEmpty(message="Debes especificar el nombre del producto")
 	private String nombre;
+	
+	@NotNull(message="Debes especificar la categoria")
 	private Categoria categoria;
+	
+	@NotNull
 	private double costoUnitario;
+	
+	@NotNull
 	private double precioVenta;
+	
+	@NotNull
 	private int stockProducto;
+	
+	@NotNull(message="La fecha de vencimiento del producto es requerido")
 	private Date fechaVencimiento;
+	
+	@NotNull
 	private Proveedor proveedor;
 
 	public Producto() {
@@ -136,7 +158,22 @@ public class Producto {
 	public void restarExistencia(int cantidad) {
 		this.stockProducto -= cantidad;
 	}
+	
+	public void sumarExistencia(int cantidadIngresado) {
+		this.stockProducto += cantidadIngresado;
+		
+	}
 
+	public void actualizarFechaVencimiento(Date fechavNuevo) {
+		this.fechaVencimiento = fechavNuevo;
+		
+	}
+	
+	public void actualizarCostoUnitario(double costoUnitarioNuevo) {
+		this.costoUnitario = (costoUnitario+costoUnitarioNuevo)/2;
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", codigoBarras=" + codigoBarras + ", nombre=" + nombre
@@ -144,5 +181,9 @@ public class Producto {
 				+ ", stockProducto=" + stockProducto + ", fechaVencimiento=" + fechaVencimiento + ", proveedor="
 				+ proveedor + "]";
 	}
+
+
+
+	
 
 }

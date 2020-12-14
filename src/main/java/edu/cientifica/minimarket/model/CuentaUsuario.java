@@ -1,15 +1,28 @@
 package edu.cientifica.minimarket.model;
 
-import java.util.List;
 
-public class CuentaUsuario {
-	
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class CuentaUsuario{
+	@NotNull
 	private int idCuenta;
+	
+	@NotNull
+	@Size(min=5, message = "El usuario debe ser mayor a 5 digitos")
 	private String usuario;
+	
+	@NotNull
+	@Size(min = 5, message = "La contraseña debe ser mayor a 5 digitos")
 	private String contrasenha;
+	
+
 	private String tipoUsuario;
+	
 	private Empleado empleado;
-	private List<Permiso> permisos;
+	
+	private Permiso permisos;
 	
 	
 	public CuentaUsuario() {
@@ -17,8 +30,11 @@ public class CuentaUsuario {
 	}
 
 
-	public CuentaUsuario(int idCuenta, String usuario, String contrasenha, String tipoUsuario, Empleado empleado,
-			List<Permiso> permisos) {
+
+	public CuentaUsuario(@NotNull int idCuenta, 
+			@NotNull @Size(min=5, max=10 , message = "El usuario debe tener de 5 a 10 caracteres") String usuario, 
+	        @NotNull @Size(min = 5, max = 10, message = "La contraseña debe ser de cinco digitos")String contrasenha, 
+	       String tipoUsuario, Empleado empleado,  Permiso permisos) {
 		super();
 		this.idCuenta = idCuenta;
 		this.usuario = usuario;
@@ -28,7 +44,17 @@ public class CuentaUsuario {
 		this.permisos = permisos;
 	}
 
-	public CuentaUsuario(int idCuenta, String usuario, String contrasenha, String tipoUsuario, Empleado empleado) {
+
+	public CuentaUsuario(String usuario, String contrasenha) {
+		super();
+		this.usuario = usuario;
+		this.contrasenha = contrasenha;
+	}
+
+	public CuentaUsuario(@NotNull int idCuenta, 
+			@NotNull @Size(min=5, max=10 , message = "El usuario debe tener de 5 a 10 caracteres") String usuario, 
+			@NotNull @Size(min = 5, max = 10, message = "La contraseña debe ser de cinco digitos") String contrasenha, 
+			String tipoUsuario, Empleado empleado) {
 		super();
 		this.idCuenta = idCuenta;
 		this.usuario = usuario;
@@ -94,12 +120,13 @@ public class CuentaUsuario {
 	}
 
 
-	public List<Permiso> getPermisos() {
+
+	public Permiso getPermisos() {
 		return permisos;
 	}
 
 
-	public void setPermisos(List<Permiso> permisos) {
+	public void setPermisos(Permiso permisos) {
 		this.permisos = permisos;
 	}
 
@@ -107,7 +134,7 @@ public class CuentaUsuario {
 	@Override
 	public String toString() {
 		return "CuentaUsuario [idCuenta=" + idCuenta + ", usuario=" + usuario + ", contrasenha=" + contrasenha
-				+ ", tipoUsuario=" + tipoUsuario + ", empleado=" + empleado + ", permisos=" + permisos + "]";
+				+ ", tipoUsuario=" + tipoUsuario + ", empleado=" + empleado + ", permiso=" + permisos + "]";
 	}
 	
 

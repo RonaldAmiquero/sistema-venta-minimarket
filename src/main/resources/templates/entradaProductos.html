@@ -43,7 +43,10 @@
     <section class="formEntradaP">
       <div id="formPrincipal" class="container">
         <h1 class="titulo text-center">Entrada de Producto</h1>
-        
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert">
+        </div>   
         <fieldset class="border border-secondary p-2 w-auto">
           <legend class="w-auto">Producto existente</legend>
           <form th:action="@{/entradaproducto/buscar}" th:object="${producto}" method="post">
@@ -86,7 +89,7 @@
             <div class="form-row form-group">
               <div class="col-6">
                 <label for="codigoBarras">Código de barras</label>
-                <input autofocus autocomplete="off" class="form-control" th:id="codigoBarras" th:name="codigoBarras" type="text"
+                <input type="text" readonly="readonly" class="form-control" th:required="required" th:id="codigoBarras" th:name="codigoBarras" 
                   placeholder="repite el codigo de barras" th:field="${producto.codigoBarras}">
               </div>
               <div class="col-3">
@@ -100,8 +103,8 @@
             </div>
             <div class="form-row form-group">
               <div class="col-6">
-                <label for="fechaVencimiento">Fecha de Vencimiento (dd/mm/aaaa)</label>
-                <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento" th:field="*{fechavNuevo}">
+                <label for="fechavNuevo">Fecha de Vencimiento (dd/mm/aaaa)</label>
+                <input type="date" class="form-control" th:required="required" id="fechavNuevo" name="fechavNuevo" th:field="*{fechavNuevo}">
               </div>
             </div>
             <button type="submit" class="btn btn-success">Agregar
@@ -116,17 +119,17 @@
                 <label for="idEproducto">Nro.</label>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" id="idEproducto" name="idEproducto" th:field="*{idEproducto}">
+                <input type="number" readonly="readonly" class="form-control" th:id="idEproducto" th:name="idEproducto" th:field="*{idEproducto}">
               </div>
             </div>
             <div class="form-row form-group">
               <div class="col">
                 <label for="nroFactura">Nro. de Pedido ó Factura</label>
-                <input type="text" class="form-control" id="nroFactura" name="nroFactura" th:field="*{nroFactura}">
+                <input type="text" class="form-control" th:required="required" th:id="nroFactura" th:name="nroFactura" th:field="*{nroFactura}">
               </div>
               <div class="col">
-                <label for="fechaEntrada">Fecha de Ingreso (dd/mm/aaaa)</label>
-                <input type="date" class="form-control" id="fechaEntrada" name="fechaEntrada" th:field="*{fechaIngreso}">
+                <label for="fechaIngreso">Fecha de Ingreso (dd/mm/aaaa)</label>
+                <input type="date" class="form-control" th:required="required" th:id="fechaIngreso" th:name="fechaIngreso" th:field="*{fechaIngreso}">
               </div>
             </div>
             <div class="form-row form-group">
@@ -134,7 +137,7 @@
                 <label for="proveedor">Proveedor</label>
               </div>
               <div class="col-6">
-                <select id="proveedor" name="proveedor" class="form-control" th:field="*{proveedor.id}">
+                <select th:id="proveedor" th:name="proveedor" class="form-control" th:field="*{proveedor.id}">
                   <option th:value="0" th:text="--Seleccione--"></option>
                   <option th:each="proveedor : ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}">
                   </option>
@@ -183,8 +186,95 @@
         </table>
       </div>
     </section>
-
-
+    
+	<!-- Modal -->
+    <div class="modal fade" id="nuevoProducto" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"> Registrar Producto </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{/producto/registrarentrada}" method="post" th:object="${producto}">
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="idProducto">Id</label>
+                  <input type="number" class="form-control" readonly="readonly" id="idProducto" name="idProducto"
+                    th:field="*{idProducto}" />
+                </div>
+                <div class="col">
+                  <label for="nombreProducto">Nombre del Producto</label>
+                  <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" th:field="*{nombre}"
+                    th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''"/>
+                  <div class="invalid-feedback" th:errors="*{nombre}"></div>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="codBarras">Código de Barras</label>
+                  <input type="text" class="form-control" id="codBarras" name="codBarras" th:field="*{codigoBarras}" 
+                  th:classappend="${#fields.hasErrors('codigoBarras')} ? 'is-invalid' : ''" />
+                  <div class="invalid-feedback" th:errors="*{codigoBarras}"></div>
+                </div>
+                <div class="col">
+                  <label for="categoria">Categoria</label>
+                  <select id="categoria" name="categoria" class="form-control" th:field="*{categoria.idCategoria}" 
+                  th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid' : ''">
+                    <option th:value="0" th:text="---Seleccionar---"></option>
+                    <option th:each="categoria : ${listaCategorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}">
+                    </option>
+                  </select>
+                  <div class="invalid-feedback" th:errors="*{categoria}"></div>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="stock">Stock Producto</label>
+                  <input type="number" min="0" class="form-control" id="stock" name="stock" th:field="*{stockProducto}" th:classappend="${#fields.hasErrors('stockProducto')} ? 'is-invalid' : ''" />
+                  <div class="invalid-feedback" th:errors="*{stockProducto}"></div>
+                </div>
+                <div class="col">
+                  <label for="costoUnitario">Costo Unitario</label>
+                  <input type="number" step="any" min="0" class="form-control" id="costoUnitario" name="costoUnitario" th:field="*{costoUnitario}" th:classappend="${#fields.hasErrors('costoUnitario')} ? 'is-invalid' : ''"/>
+                  <div class="invalid-feedback" th:errors="*{costoUnitario}"></div>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <label for="precioVenta">Precio Venta</label>
+                  <input type="number" step="any" min="0" class="form-control" id="precioVenta" name="precioVenta" th:field="*{precioVenta}"/>
+                </div>
+                <div class="col">
+                  <label for="fvencimiento">Fecha Vencimiento</label>
+                  <input type="date" class="form-control" id="fvencimiento" name="fvencimiento" th:field="*{fechaVencimiento}" th:classappend="${#fields.hasErrors('fechaVencimiento')} ? 'is-invalid' : ''"/>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col-6">
+                  <label for="proveedor">Proveedor</label>
+                  <select id="proveedor" name="proveedor" class="form-control" th:field="*{proveedor.id}">
+                    <option th:value="0" th:text="--Seleccione--"></option>
+                    <option th:each="proveedor : ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombreEmpresa}">
+                    </option>
+                  </select>
+                </div>
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

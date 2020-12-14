@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+     <link rel="stylesheet" th:href="@{/css/principal.css}">
+     <link rel="icon" th:href="@{/img/favicon.jpg}" type="image/jpg">
+     	<link rel="stylesheet" th:href="@{/css/registrarUsuario.css}">
+    <title>Registrar Usuario</title>
+  </head>
+
+  <body>
+    <nav th:replace="principal :: nav">
+    </nav>
+    <main>
+      <div class="container">
+        <form  th:action="@{/usuario/registrar}" method="post" th:object="${CuentaUsuario}">
+          <h2 class="text-center pt-2">Registrar Usuarios</h2>
+          <div class="form-row form-group">
+            <div class="col-1">
+              <label for="idCuenta">Código</label>
+              <input type="number" class=" form-control" readonly="readonly" id="idCuenta" name="idCuenta" th:field="*{idCuenta}" >
+            </div>
+          </div>
+          <div class="form-row form-group">
+            <div class="col">
+              <label for="usuario">Usuario</label>
+              <input type="text" class="form-control" id="usuario" name="usuario" th:field="*{usuario}" >
+            </div>
+            <span th:if="${#fields.hasErrors('usuario')}" th:text="Error" class="alert alert-danger">Error.</span>
+            
+            <div class="col">
+              <label for="contrasenha"> Contraseña</label>
+              <input type="password" class="form-control" id="contrasenha" name="contrasenha" th:field="*{contrasenha}" >
+            </div>
+            <span th:if="${#fields.hasErrors('contrasenha')}" th:text="Error" class="alert alert-danger">Error.</span>
+          
+          </div>
+          <div class="form-row form-group">
+            <div class="col-6">
+              <label for="tipoUsuario">Tipo de usuario</label>
+              <select id="tipoUsuario" name="tipoUsuario" class="form-control"  th:field="*{tipoUsuario}"  >
+                <option th:value="0" th:text="---Seleccionar---"></option>
+                <option value="Administrador">Administrador</option>
+                <option value="Cajero">Cajero</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="empleado">Empleado</label>
+              <select id="empleado" name="empleado" class="form-control" th:field="*{empleado.id}">
+                <option th:value="0" th:text="---Seleccionar---"></option>
+                <option th:each="empleado: ${listaEmpleados}" th:value="${empleado.id}" th:text="${empleado.apellido}">
+                </option>          
+              </select>
+            </div>
+          </div>
+        
+          <fieldset class="border border-secondary p-2 m-4">
+            <legend class="w-auto">Permisos del Sistema</legend>
+            <div class="form-row">
+              <div class="col offset-1">
+                <label for="registrarProveedores">
+                  <input type="checkbox" class="form-check-input"  id="registrarProveedores" value="1" name="permisos" th:field="*{permisos.idPermiso}">Registrar proveedores
+                </label>
+              </div>
+             
+              <div class="col offset-1">
+                <label for="entradaProd">
+                  <input type="checkbox" class="form-check-input" id="entradaProd"  value="5" name="permisos" th:field="*{permisos.idPermiso}">Entrada Productos
+                </label>
+              </div>
+              
+              <div class="col offset-1">
+                <label for="listarVentas">
+                  <input type="checkbox" class="form-check-input" id="listarVentas"  value="9" name="permisos" th:field="*{permisos.idPermiso}">Listar Ventas Registradas
+                </label>
+              </div>
+             
+            </div>
+
+            <div class="form-row">
+              <div class="col offset-1">
+                <label for="listarProv">
+                  <input type="checkbox" class="form-check-input" id="listarProv"   value="2" name="permisos" th:field="*{permisos.idPermiso}">Listar Proveedores
+                </label>
+              </div>
+              
+              <div class="col offset-1">
+                <label for="listarProd">
+                  <input type="checkbox" class="form-check-input" id="listarProd"  value="6" name="permisos" th:field="*{permisos.idPermiso}">Listar Productos
+                </label>
+              </div>
+              
+              <div class="col offset-1">
+                <label for="reportes">
+                  <input type="checkbox" class="form-check-input" id="reportes"  value="10" name="permisos" th:field="*{permisos.idPermiso}">Reportes
+                </label>
+              </div>
+               
+            </div>
+
+            <div class="form-row">
+              <div class="col offset-1">
+                <label for="registrarProd">
+                  <input type="checkbox" class="form-check-input" id="registrarProd"  value="3" name="permisos" th:field="*{permisos.idPermiso}">Registrar Productos
+                </label>
+              </div>
+               
+              <div class="col offset-1">
+                <label for="realizarVenta">
+                  <input type="checkbox" class="form-check-input" id="realizarVenta"  value="7" name="permisos" th:field="*{permisos.idPermiso}">Realizar Venta
+                </label>
+              </div>
+            
+              <div class="col offset-1">
+                <label for="registrarU">
+                  <input type="checkbox" class="form-check-input" id="registrarU"  value="11" name="permisos" th:field="*{permisos.idPermiso}">Registrar Usuarios
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-4 offset-1">
+                <label for="salidaProd">
+                  <input type="checkbox" class="form-check-input" id="salidaProd"  value="4" name="permisos" th:field="*{permisos.idPermiso}">Salida de Productos
+                </label>
+              </div>
+            
+              <div class="col">
+                <label for="listarUsuarios">
+                  <input type="checkbox" class="form-check-input" id="listarUsuarios"  value="8" name="permisos" th:field="*{permisos.idPermiso}">Listar Usuarios
+                </label>
+              </div>
+            </div>
+            <div class="form-row justify-content-center">
+              <div class="col-2">
+                <input type="submit" class="form-control btn-primary" value="Guardar">
+              </div>
+              <div class="col-2">
+               <a th:href="@{/usuario/lista}" class="btn btn-primary">Ver Usuarios</a>
+              </div>
+            </div>
+          </fieldset>         
+         <div class="alert alert-danger"
+          th:if="${#fields.hasErrors('*')}">
+          <div th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+        </div>
+        
+     </form>
+      </div>
+    </main>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+            -->
+  </body>
+
+</html>

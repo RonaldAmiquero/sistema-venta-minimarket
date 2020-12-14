@@ -19,7 +19,7 @@ public interface ProductoMapper {
 			+ "VALUES (#{idProducto}, #{codigoBarras}, #{nombre}, #{costoUnitario}, #{precioVenta}, #{stockProducto}, #{fechaVencimiento}, #{categoria.idCategoria})")
 	public int addProducto(Producto producto);
 	
-	@Select("select max(id_producto) + 1 as codigo from productos")
+	@Select("SELECT IFNULL(max(id_producto), 0)+1 as codigo from productos")
 	@ResultType(Integer.class)
 	public int findId();
 	

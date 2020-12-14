@@ -3,6 +3,8 @@ package edu.cientifica.minimarket.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,15 +60,56 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/registrar")
-	public String registrarProducto(@ModelAttribute("Producto") Producto producto, 
+	public String registrarProducto(@Valid @ModelAttribute("Producto") Producto producto, 
 			BindingResult errors, Model model, RedirectAttributes atribute) {
-	
+		List<Categoria> listaCategorias= categoriaService.listarCategoria();
+		List<Proveedor> listaProveedores= proveedorService.listarProveedores();
+		LOG.info("producto: "+producto);
+		
 		if (errors.hasErrors()) {
 			LOG.info("numero de errores: "+errors.getErrorCount());
 			for (ObjectError oe : errors.getAllErrors()) {
-				LOG.info("error "+oe.getCode()+" "+oe.getObjectName()+oe.getDefaultMessage());
+				LOG.info("error "+oe.getCode()+" "+oe.getObjectName()+ oe.getDefaultMessage());
 			}
-			return ("registrarProductos");
+			
+			model.addAttribute("listaCategorias",listaCategorias);
+			model.addAttribute("listaProveedores", listaProveedores);
+			
+			return "registrarProductos";
+		}
+		
+		if(producto.getCategoria().getIdCategoria() == 0 || producto.getProveedor().getId()==0) {
+			atribute
+			.addFlashAttribute("mensaje", "Debe completar todos los campos 🤷‍")
+			.addFlashAttribute("clase", "warning");
+		}
+		
+		try {
+			@SuppressWarnings("unused")
+			int result =productoService.registrarProducto(producto);
+			atribute
+			.addFlashAttribute("mensaje", "Se registró el producto correctamente ✔")
+			.addFlashAttribute("clase", "success");
+		
+		} catch (Exception e) {
+			LOG.info("ERROR" + e.getMessage());
+		}
+
+		return "redirect:/producto/form";
+	}
+	
+	@PostMapping("/registrarentrada")
+	public String registrarEntradaProducto(@Valid @ModelAttribute("Producto") Producto producto, 
+			BindingResult errors, Model model, RedirectAttributes atribute) {
+		
+		if (errors.hasErrors()) {
+			LOG.info("numero de errores: "+errors.getErrorCount());
+			for (ObjectError oe : errors.getAllErrors()) {
+				LOG.info("error "+oe.getCode()+" "+oe.getObjectName()+ oe.getDefaultMessage());
+			}
+			
+			
+			return "registrarProductos";
 		}
 		
 
@@ -77,8 +120,9 @@ public class ProductoController {
 			LOG.info("ERROR" + e.getMessage());
 		}
 
-		return "redirect:/producto/form";
+		return "redirect:/entradaproducto/";
 	}
+	
 	
 	@GetMapping("/lista")
 	public String listaProducto(Model model) {
